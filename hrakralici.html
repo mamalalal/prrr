@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+body {
+  margin: 40px;
+}
+
+.plocha {
+	padding-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(5,100px);
+ 	grid-template-rows: 100px 100px 100px 100px 100px;
+  grid-gap: 1px;
+	background-color: #fff;
+	color: #444;
+}
+
+button{
+  height:25px;
+  width:75px;
+}
+
+img{
+  text-align: left;
+  height:90px;
+  width:90px;
+}
+p{
+  
+
+}
+
+.box {
+  	background-color: #57B623;
+  	color: #fff;
+  	padding: 5px;
+  	font-size: 150%;
+}
+
+div	
+{
+    text-align:center;
+    display:inline;
+
+
+}
+
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>Práce v hodině</title>
+</head>
+<body>
+
+  X <input type="number" id="x">
+  Y <input type="number" id="y">
+  <button onclick="myFunction()" id="button">Move</button><br><br>
+  <div id="kroky"> zbývající kroky: 0</div>      <div id="pusky">Zbývající mrkve: 4</div>
+
+  <div class="plocha">
+    <div class="box b" id="0_0"></div>
+    <div class="box c" id="0_1"></div>
+    <div class="box d" id="0_2"></div>
+    <div class="box e" id="0_3"></div>
+    <div class="box f" id="0_4"></div>
+    <div class="box g" id="1_0"></div>
+    <div class="box h" id="1_1"></div>
+    <div class="box i" id="1_2"></div>
+    <div class="box j" id="1_3"></div>
+    <div class="box k" id="1_4"></div>
+    <div class="box l" id="2_0"></div>
+    <div class="box m" id="2_1"></div>
+    <div class="box n" id="2_2"></div>
+    <div class="box o" id="2_3"></div>
+    <div class="box p" id="2_4"></div>
+    <div class="box q" id="3_0"></div>
+    <div class="box r" id="3_1"></div>
+    <div class="box s" id="3_2"></div>
+    <div class="box t" id="3_3"></div>
+    <div class="box u" id="3_4"></div>
+    <div class="box v" id="4_0"></div>
+    <div class="box w" id="4_1"></div>
+    <div class="box x" id="4_3"></div>
+    <div class="box y" id="4_3"></div>
+    <div class="box a" id="4_4"></div>
+  </div><br>
+  <div>
+    <button onclick="myFunction2()" id="button">Restart</button> 
+    <button onclick="myFunction3()" id="button">Kontrola</button>
+  </div>
+
+<script type="text/javascript">
+	var cislo1 = (Math.floor(Math.random()*5)) + "_1";
+	var cislo2 = (Math.floor(Math.random()*5)) + "_2";
+	var cislo3 = (Math.floor(Math.random()*4)) + "_3";
+	var cislo4 = 4 + "_4";
+	var ak471 = "<div id='ak1'><img src='ak.png'></div>";
+  var ak472 = "<div id='ak2'><img src='ak.png'></div>";
+  var ak473 = "<div id='ak3'><img src='ak.png'></div>";
+  var ak474 = "<div id='ak4'><img src='ak.png'></div>";
+	var kralik = "<div id='vymazat'><img src='kralik.png'></div>";
+  var kralikzzz = "<img src='kralikzzz.png'>";
+  var kroky = 0;
+  var mrkve = 0;
+  var zbývajícíMrkve = 4;
+
+	$('#' + cislo1).append(ak471);
+	$('#' + cislo2).append(ak472);
+	$('#' + cislo3).append(ak473);
+	$('#' + cislo4).append(ak474);
+	$('#0_0').append(kralik);
+
+  function myFunction(){
+    var x = (document.getElementById("y").value);
+    var y = (document.getElementById("x").value);
+
+    if (x>4) {x=4}  
+
+    if (y>4) {y=4}  
+
+    var xy = x  +"_"+ y;
+
+if(xy == cislo1){
+  kroky++;
+  $(ak1).detach();
+  $(vymazat).detach();
+  $('#' + xy).append(kralik);
+  document.getElementById("kroky").innerHTML = "kroky: " + kroky;
+  zbývajícíMrkve--;
+  document.getElementById("pusky").innerHTML = "zbývající mrkve: " + zbývajícíMrkve;
+
+} else if(xy == cislo2){
+  kroky++;
+  $(ak2).detach();
+  $(vymazat).detach();
+  $('#' + xy).append(kralik);
+  document.getElementById("kroky").innerHTML = "kroky: " + kroky;
+  zbývajícíMrkve--;
+  document.getElementById("pusky").innerHTML = "zbývající mrkve: " + zbývajícíMrkve;
+} else if(xy == cislo3){
+  kroky++;
+  $(ak3).detach();
+  $(vymazat).detach();
+  $('#' + xy).append(kralik);
+  document.getElementById("kroky").innerHTML = "kroky: " + kroky;
+  zbývajícíMrkve--;
+  document.getElementById("pusky").innerHTML = "zbývající mrkve: " + zbývajícíMrkve;
+} else if(xy == cislo4){
+  kroky++;
+  $(ak4).detach();
+  $(vymazat).detach();
+  $('#' + xy).append(kralik);
+  document.getElementById("kroky").innerHTML = "kroky: " + kroky;
+  zbývajícíMrkve--;
+  document.getElementById("pusky").innerHTML = "zbývající mrkve: " + zbývajícíMrkve;
+  }else{
+      kroky++;
+      document.getElementById("kroky").innerHTML = "kroky: " + kroky;
+      $(vymazat).detach();
+      $('#' + xy).append(kralikzzz);
+      setInterval(function(){ alert("Nevyhrál jsi"); }, 1000);      
+
+	}
+}
+ function myFunction2(){
+    location.reload();
+ }
+
+ function myFunction3(){
+   if(kroky == 4){
+    alert("vyhrál jsi");
+   }else{
+    $(vymazat).detach();
+    $('#0_0').append(kralikzzz);
+   
+    alert("prohrál jsi");
+   }
+ }
+	</script>
+</body>
+</html>
