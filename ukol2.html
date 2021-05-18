@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="jcanvas.min.js"></script>
+	<title>stromy</title>
+	<style type="text/css">
+		body{
+			background-color: lightblue;
+		}
+		.strom {
+			position: absolute;
+			border-radius: 50%;
+		}
+		.canvas {
+			border: 2px solid black;
+			background-image: url("img.jpg");
+		}
+	</style>
+</head>
+<body>
+
+	<canvas class="canvas" id="canvas" width="500" height="800"></canvas>
+	
+	<script type="text/javascript">
+
+		var pocet = prompt("Kolik stromků chcete?");
+		
+		$.get("http://oddtgames.cz/vyuka/wea/trees_api.php",
+ 			function (data) {
+ 				var dataa = JSON.parse(data);
+ 				console.log($('#pocet'));
+ 				for(var i = 0; i < pocet; i++) {
+ 					makeTree(dataa.results[i].tree_diameter, dataa.results[i].stem_diameter, dataa.results[i].branch_count,
+ 				 				dataa.results[i].tree_color, dataa.results[i].posx, dataa.results[i].posy);
+ 			}
+ 		});	
+
+ 		function makeTree(t_dia,s_dia,branch,color,x,y,sizex,sizey) {
+ 			var x_koruna = x + 100;
+			var y_koruna = y + 50;
+			var x_kmen = x * 1.002 + 100;
+			var y_kmen = y * 1.002 + 50;
+			var koruna = t_dia * 5;
+			var kmen = s_dia * 5;
+			var vetve = branch;
+			var barva = color;
+
+			$('canvas').drawEllipse({
+  				fillStyle: color,
+  				x: x_koruna, y: y_koruna,
+  				radius: 50,
+  				width: koruna, height: koruna
+				});
+
+			$('canvas').drawEllipse({
+  				fillStyle: 'brown',
+  				x: x_kmen, y: y_kmen,
+  				radius: 50,
+  				width:kmen, height: kmen
+				});
+
+			for (var i = 0; i < vetve; i++) {
+				var uhel = Math.random() * (2 * Math.PI);
+				var konec_x = x_kmen + koruna * Math.cos(uhel)/2;
+				var konec_y = y_kmen + koruna * Math.sin(uhel)/2;
+
+				$('canvas').drawLine({
+					strokeStyle: 'brown',
+					strokeWidth: 13,
+					x1: x_kmen , y1: y_kmen,
+					x2: konec_x, y2: konec_y
+				});
+			};
+		}
+	</script>
+
+</body>
+</html>
